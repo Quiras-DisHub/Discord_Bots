@@ -13,11 +13,11 @@ guessTimer = 2
 #DICTIONARY FILE AND WORD PREP
 dictOptions = ['full','cmu','mit','first','last']
 if serverNode == "Master":
-	firstNameDict = open('/home/one-to-rule-them-all/VIRTUAL/Code_File/Workroom/Discord_Bots/Plato_2.0/Game_Files/DICTS/NAMES/first-names.txt', 'r')
-	lastNameDict  = open('/home/one-to-rule-them-all/VIRTUAL/Code_File/Workroom/Discord_Bots/Plato_2.0/Game_Files/DICTS/NAMES/last-names.txt', 'r')
-	fullDict      = open('/home/one-to-rule-them-all/VIRTUAL/Code_File/Workroom/Discord_Bots/Plato_2.0/Game_Files/DICTS/FULL_DICT.txt', 'r')
-	olderDict     = open('/home/one-to-rule-them-all/VIRTUAL/Code_File/Workroom/Discord_Bots/Plato_2.0/Game_Files/DICTS/main_cambridge.txt', 'r')
-	newerDict     = open('/home/one-to-rule-them-all/VIRTUAL/Code_File/Workroom/Discord_Bots/Plato_2.0/Game_Files/DICTS/main_mit.txt', 'r')
+	firstNameDict = open('/home/one-to-rule-them-all/VIRTUAL/Discord_Bots/Plato_3/_4_Supplement_Data/DICTS/NAMES/first-names.txt', 'r')
+	lastNameDict  = open('/home/one-to-rule-them-all/VIRTUAL/Discord_Bots/Plato_3/_4_Supplement_Data/DICTS/NAMES/last-names.txt', 'r')
+	fullDict      = open('/home/one-to-rule-them-all/VIRTUAL/Discord_Bots/Plato_3/_4_Supplement_Data/DICTS/FULL_DICT.txt', 'r')
+	olderDict     = open('/home/one-to-rule-them-all/VIRTUAL/Discord_Bots/Plato_3/_4_Supplement_Data/DICTS/main_cambridge.txt', 'r')
+	newerDict     = open('/home/one-to-rule-them-all/VIRTUAL/Discord_Bots/Plato_3/_4_Supplement_Data/DICTS/main_mit.txt', 'r')
 
 words 	   = []
 wordList   = []
