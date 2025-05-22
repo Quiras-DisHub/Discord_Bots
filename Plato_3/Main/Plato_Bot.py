@@ -5,8 +5,8 @@ This Code is licensed under the "GNU AGPL" License, a copy of this license is co
 If you did not receive a copy, you may find it at: https://www.gnu.org/licenses/agpl-3.0.html
 '''
 
-from Plato_3._2_Settings.botSettings import *
-from _2_Settings.gameSettings import *
+from Settings.botSettings import *
+from Settings.gameSettings import *
 
 def time_in_range(start, end, current):
     return start <= current <= end

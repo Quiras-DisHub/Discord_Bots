@@ -4,9 +4,9 @@ Copyright © 2025, Quira Walker. All Rights Reserved.
 This Code is licensed under the "GNU AGPL" License, a copy of this license is contained in this Folder.
 If you did not receive a copy, you may find it at: https://www.gnu.org/licenses/agpl-3.0.html
 '''
-from _2_Settings.botSettings import *
-from _1_Main.Plato_Bot import time_in_range
-from _2_Settings.quoteSettings import allQuotes
+from Settings.botSettings import *
+from Main.Plato_Bot import time_in_range
+from Settings.quoteSettings import allQuotes
 
 class DailyTasks(commands.Cog):
     def __init__(self, bot):
