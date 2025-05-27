@@ -18,7 +18,7 @@ except ImportError:
 	print("The Discord Module could not be accessed.")
 try:
     from dotenv import load_dotenv
-    load_dotenv()
+    load_dotenv('/home/one-to-rule-them-all/VIRTUAL/Code_File/BOT_STUFF/SENSITIVE/.env')
 except ImportError:
     print("The Dotenv Module was not found, so please run:\npip install -U python-dotenv\nThen try again")
 
@@ -101,7 +101,7 @@ async def ready_message(ID, guild):
 
 #LOGGING
 if serverNode == "Master":
-	log = '/home/one-to-rule-them-all/VIRTUAL/Code_File/Workroom/Discord_Bots/Plato_2.0/Logs_Files/systemLog.txt'
+	log = '/home/one-to-rule-them-all/VIRTUAL/Code_File/BOT_STUFF/LOGS/systemLog.txt'
 def log_entry(message):
 	logEntryTime = DT.now(pytz.timezone("US/Mountain"))
 	logEntryTime = logEntryTime.strftime("%b %d, %Y @ %I:%M:%S %Z")
@@ -115,7 +115,7 @@ class WordTracker():
 	def __init__(self):
 		self.trackedWords = ['roy', ':3', 'fuck', 'fucking', 'fuckery']
 		if serverNode == "Master":
-			self.logFile = '/home/one-to-rule-them-all/VIRTUAL/Code_File/Workroom/Discord_Bots/Plato_2.0/Logs_Files/wordLog.json'
+			self.logFile = '/home/one-to-rule-them-all/VIRTUAL/Code_File/BOT_STUFF/LOGS/wordLog.json'
 		self.currentLog = None
 	def read_logs(self):
 		with open(self.logFile, 'r', encoding='UTF-8') as log:

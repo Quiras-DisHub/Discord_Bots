@@ -4,6 +4,8 @@ Copyright © 2025, Quira Walker. All Rights Reserved.
 This Code is licensed under the "GNU AGPL" License, a copy of this license is contained in this Folder.
 If you did not receive a copy, you may find it at: https://www.gnu.org/licenses/agpl-3.0.html
 '''
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Settings.botSettings import *
 from Settings.gameSettings import *
@@ -18,11 +20,11 @@ async def on_ready():
     print("\n\n")
     log_entry(f'Plato should be connected to: {GUILDS}\nAnd is connected to: {guildCount} servers')
     await asyncio.sleep(0.25)
-    await bot.load_extension('Settings.Command_Cogs.systemCog')
+    await bot.load_extension('Cogs.systemCog')
     await asyncio.sleep(0.25)
-    await bot.load_extension('Settings.Command_Cogs.functionCog')
+    await bot.load_extension('Cogs.functionCog')
     await asyncio.sleep(0.25)
-    await bot.load_extension('Settings.Command_Cogs.dailyCog')
+    await bot.load_extension('Cogs.dailyCog')
 
 @bot.listen()
 async def on_message(message):
@@ -41,11 +43,11 @@ async def on_message(message):
 
     if message.content.lower() == 'reload':
         await message.channel.send("Reloading Plato's System")
-        await bot.reload_extension('Settings.Command_Cogs.systemCog')
+        await bot.reload_extension('Cogs.systemCog')
         await message.channel.send("Reloading Plato's Functions")
-        await bot.reload_extension('Settings.Command_Cogs.functionCog')
+        await bot.reload_extension('Cogs.functionCog')
         await message.channel.send("Reloading Plato's Daily Tasks")
-        await bot.reload_extension('Settings.Command_Cogs.dailyCog')
+        await bot.reload_extension('Cogs.dailyCog')
 
 
 bot.run(TOKEN, reconnect=True)
