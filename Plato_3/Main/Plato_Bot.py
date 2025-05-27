@@ -49,5 +49,5 @@ async def on_message(message):
         await message.channel.send("Reloading Plato's Daily Tasks")
         await bot.reload_extension('Cogs.dailyCog')
 
-
-bot.run(TOKEN, reconnect=True)
+if __name__ == '__main__':
+    bot.run(TOKEN, reconnect=True)

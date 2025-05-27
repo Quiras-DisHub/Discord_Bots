@@ -20,7 +20,7 @@ class DailyTasks(commands.Cog):
     @tasks.loop(minutes=1)  # Check every minute
     async def daily_task(self):
         now = DT.now(self.timezone)
-        target_time = time(16, 23)
+        target_time = time(11, 5)
         
         current_time = now.time()
         start_time = time(target_time.hour, target_time.minute)
@@ -46,3 +46,11 @@ class DailyTasks(commands.Cog):
     @daily_task.before_loop
     async def before_daily_task(self):
         await self.bot.wait_until_ready()
+
+async def setup(bot):
+    await bot.add_cog(DailyTasks(bot))
+    log_entry("DailyTasks Cog loaded into sys")
+
+async def teardown(bot):
+    await bot.remove_cog(DailyTasks(bot))
+    log_entry("DailyTasks Cog unloaded from sys")
