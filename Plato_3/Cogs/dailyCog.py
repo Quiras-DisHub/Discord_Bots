@@ -7,6 +7,7 @@ If you did not receive a copy, you may find it at: https://www.gnu.org/licenses/
 from Settings.botSettings import *
 from Main.Plato_Bot import time_in_range
 from Settings.quoteSettings import allQuotes
+from datetime import time
 
 class DailyTasks(commands.Cog):
     def __init__(self, bot):
@@ -20,7 +21,7 @@ class DailyTasks(commands.Cog):
     @tasks.loop(minutes=1)  # Check every minute
     async def daily_task(self):
         now = DT.now(self.timezone)
-        target_time = time(11, 5)
+        target_time = time(8, 47)
         
         current_time = now.time()
         start_time = time(target_time.hour, target_time.minute)
@@ -34,6 +35,7 @@ class DailyTasks(commands.Cog):
             message = f"Your daily quote has arrived:\n{dailyQuote}"
             channels = [quoteChannelId1, quoteChannelId2, channelId3]
             for channel in channels:
+                print(channel)
                 await send_message(channel, message)
             log_entry('Daily Quote was sent')
 ### MOON

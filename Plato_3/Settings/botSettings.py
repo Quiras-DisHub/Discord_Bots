@@ -37,43 +37,43 @@ if serverNode == 'one-to-rule-them-all':
 
 #SERVER INFO
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
-GUILD1 			   = os.getenv('DISCORD_GUILD1')
-GUILD_ID1          = os.getenv('DISCORD_GUILD_ID1')
-channelId1         = os.getenv('MODERATION_CHANNEL_ID1')
-moonChannelId1     = os.getenv('GEOGRAPHY_CHANNEL_ID1')
-quoteChannelId1    = os.getenv('QUOTE_CHANNEL_ID1')
-wordStatChannelId1 = os.getenv('WORDY_CHANNEL_ID1')
+GUILD1 			    = os.getenv('DISCORD_GUILD1')
+GUILD_ID1           = os.getenv('DISCORD_GUILD_ID1')
+channelId1          = os.getenv('MODERATION_CHANNEL_ID1')
+moonChannelId1      = os.getenv('GEOGRAPHY_CHANNEL_ID1')
+quoteChannelId1     = os.getenv('QUOTE_CHANNEL_ID1')
+wordStatChannelId1  = os.getenv('WORDY_CHANNEL_ID1')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
-GUILD2          = os.getenv('DISCORD_GUILD2')
-GUILD_ID2       = os.getenv('DISCORD_GUILD_ID2')
-channelId2      = os.getenv('NOTIF_CHANNEL_ID2')
-quoteChannelId2 = os.getenv('DAILYQUOTE_CHANNEL_ID2')
+GUILD2          	= os.getenv('DISCORD_GUILD2')
+GUILD_ID2       	= os.getenv('DISCORD_GUILD_ID2')
+channelId2      	= os.getenv('NOTIF_CHANNEL_ID2')
+quoteChannelId2 	= os.getenv('DAILYQUOTE_CHANNEL_ID2')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
-GUILD3 	   = os.getenv('DISCORD_GUILD3')
-GUILD_ID3  = os.getenv('DISCORD_GUILD_ID3')
-channelId3 = os.getenv('NOTIF_CHANNEL_ID3')
+GUILD3 	   			= os.getenv('DISCORD_GUILD3')
+GUILD_ID3  			= os.getenv('DISCORD_GUILD_ID3')
+channelId3 			= os.getenv('NOTIF_CHANNEL_ID3')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
-GUILD4 	   = os.getenv('DISCORD_GUILD4')
-GUILD_ID4  = os.getenv('DISCORD_GUILD_ID4')
-channelId4 = os.getenv('NOTIF_CHANNEL_ID4')
+GUILD4 	   			= os.getenv('DISCORD_GUILD4')
+GUILD_ID4  			= os.getenv('DISCORD_GUILD_ID4')
+channelId4 			= os.getenv('NOTIF_CHANNEL_ID4')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
-GUILD5 	   = os.getenv('DISCORD_GUILD5')
-GUILD_ID5  = os.getenv('DISCORD_GUILD_ID5')
-channelId5 = os.getenv('PLATOBOT_CHANNEL_ID5')
+GUILD5 	   			= os.getenv('DISCORD_GUILD5')
+GUILD_ID5  			= os.getenv('DISCORD_GUILD_ID5')
+channelId5 			= os.getenv('PLATOBOT_CHANNEL_ID5')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
-GUILD6 	      = os.getenv('DISCORD_GUILD6')
-GUILD_ID6     = os.getenv('DISCORD_GUILD_ID6')
-channelID6    = os.getenv('GUITAR_CHANNEL_ID6')
-botChannelID6 = os.getenv('NOTIF_CHANNEL_ID6')
+GUILD6 	      		= os.getenv('DISCORD_GUILD6')
+GUILD_ID6     		= os.getenv('DISCORD_GUILD_ID6')
+channelID6    		= os.getenv('GUITAR_CHANNEL_ID6')
+botChannelID6 		= os.getenv('NOTIF_CHANNEL_ID6')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
-GUILD7 	   = os.getenv('DISCORD_GUILD7')
-GUILD_ID7  = os.getenv('DISCORD_GUILD_ID7')
-channelId7 = os.getenv('GENERAL_CHANNEL_ID7')
+GUILD7 	   			= os.getenv('DISCORD_GUILD7')
+GUILD_ID7  			= os.getenv('DISCORD_GUILD_ID7')
+channelId7 			= os.getenv('GENERAL_CHANNEL_ID7')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
-GUILD8 	   	= os.getenv('DISCORD_GUILD')
-GUILD_ID8   = os.getenv('DISCORD_GUILD_ID8')
-channelId8 	= os.getenv('PLATO_NOTIF_CHANNEL_ID8')
-boosterRole = os.getenv('ROLE_NAME')
+GUILD8 	   			= os.getenv('DISCORD_GUILD')
+GUILD_ID8   		= os.getenv('DISCORD_GUILD_ID8')
+channelId8 			= os.getenv('PLATO_NOTIF_CHANNEL_ID8')
+boosterRole 		= os.getenv('ROLE_NAME')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
 notificationChannelIDs = [channelId1, channelId2, channelId3, channelId4, channelId5, botChannelID6, channelId7, channelId8]
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###

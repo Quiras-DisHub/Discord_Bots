@@ -42,6 +42,7 @@ async def on_message(message):
         await message.channel.send("Did you mean: `~help`?")
 
     if message.content.lower() == 'reload':
+        await asyncio.sleep(0.25)
         await message.channel.send("Reloading Plato's System")
         await bot.reload_extension('Cogs.systemCog')
         await message.channel.send("Reloading Plato's Functions")
