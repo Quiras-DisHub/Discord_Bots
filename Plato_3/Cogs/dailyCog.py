@@ -5,9 +5,12 @@ This Code is licensed under the "GNU AGPL" License, a copy of this license is co
 If you did not receive a copy, you may find it at: https://www.gnu.org/licenses/agpl-3.0.html
 '''
 from Settings.botSettings import *
-from Main.Plato_Bot import time_in_range
+#from Main.Plato_Bot import time_in_range
 from Settings.quoteSettings import allQuotes
 from datetime import time
+
+def time_in_range(start, end, current):
+    return start <= current <= end
 
 class DailyTasks(commands.Cog):
     def __init__(self, bot):
@@ -22,7 +25,7 @@ class DailyTasks(commands.Cog):
     @tasks.loop(minutes=1)  # Check every minute
     async def daily_task(self):
         now = DT.now(self.timezone)
-        target_time = time(8, 46)
+        target_time = time(10, 18)
         
         current_time = now.time()
         start_time = time(target_time.hour, target_time.minute)
