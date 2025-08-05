@@ -360,5 +360,5 @@ async def setup(bot):
     log_entry("FuncCommands Cog loaded into sys")
 
 async def teardown(bot):
-    await bot.remove_cog(FuncCommands(bot))
+    await bot.remove_cog('FuncCommands')
     log_entry("FuncCommands Cog unloaded from sys")

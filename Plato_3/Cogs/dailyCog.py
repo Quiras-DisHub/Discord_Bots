@@ -22,13 +22,13 @@ class DailyTasks(commands.Cog):
     @tasks.loop(minutes=1)  # Check every minute
     async def daily_task(self):
         now = DT.now(self.timezone)
-        target_time = time(8, 18)
+        target_time = time(8, 46)
         
         current_time = now.time()
         start_time = time(target_time.hour, target_time.minute)
         end_time = time(target_time.hour, target_time.minute + 1)
 
-        if time_in_range(start_time, end_time, current_time) and not self.completed:
+        if time_in_range(start_time, end_time, current_time) and self.completed is False:
             '''Daily Features: Daily Quote, Moon Phase'''
             log_entry("Begining Daily Tasks")
 ### QUOTE
@@ -44,10 +44,10 @@ class DailyTasks(commands.Cog):
             if luna != None:
                 await send_message(moonChannelId1, luna)
                 log_entry('Moon Phase was identified and sent.')
-            log_entry("Daily Tasks Completed")
 
+            log_entry("Daily Tasks Completed")
             self.completed = True
-            await time.sleep(60) # Prevents multiple executions within the same minute
+            await asyncio.sleep(60) # Prevents multiple executions within the same minute
         elif not time_in_range(start_time, end_time, current_time):
             self.completed = False
     @daily_task.before_loop
@@ -59,5 +59,5 @@ async def setup(bot):
     log_entry("DailyTasks Cog loaded into sys")
 
 async def teardown(bot):
-    await bot.remove_cog(DailyTasks(bot))
+    await bot.remove_cog('DailyTasks')
     log_entry("DailyTasks Cog unloaded from sys")
