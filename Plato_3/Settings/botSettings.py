@@ -47,7 +47,7 @@ wordStatChannelId1  = os.getenv('WORDY_CHANNEL_ID1')
 GUILD2          	= os.getenv('DISCORD_GUILD2')
 GUILD_ID2       	= os.getenv('DISCORD_GUILD_ID2')
 channelId2      	= os.getenv('NOTIF_CHANNEL_ID2')
-quoteChannelId2 	= os.getenv('DAILYQUOTE_CHANNEL_ID2')
+quoteChannelId2 	= os.getenv('QUOTE_CHANNEL_ID2')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
 GUILD3 	   			= os.getenv('DISCORD_GUILD3')
 GUILD_ID3  			= os.getenv('DISCORD_GUILD_ID3')
