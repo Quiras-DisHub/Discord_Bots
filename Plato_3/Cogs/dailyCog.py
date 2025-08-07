@@ -25,7 +25,7 @@ class DailyTasks(commands.Cog):
     @tasks.loop(minutes=1)  # Check every minute
     async def daily_task(self):
         now = DT.now(self.timezone)
-        target_time = time(10, 18)
+        target_time = time(6, 0)
         
         current_time = now.time()
         start_time = time(target_time.hour, target_time.minute)
