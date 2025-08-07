@@ -18,9 +18,21 @@ except ImportError:
 	print("The Discord Module could not be accessed.")
 try:
     from dotenv import load_dotenv
-    load_dotenv('/home/one-to-rule-them-all/VIRTUAL/Code_File/BOT_STUFF/SENSITIVE/.env')
 except ImportError:
     print("The Dotenv Module was not found, so please run:\npip install -U python-dotenv\nThen try again")
+
+#NODE SELECTION
+serverNode = os.getlogin()
+if serverNode == 'one-to-rule-them-all':
+	serverNode = "Master"
+	load_dotenv('/home/one-to-rule-them-all/VIRTUAL/Code_File/BOT_STUFF/SENSITIVE/.env')
+	systemLog = '/home/one-to-rule-them-all/VIRTUAL/Code_File/BOT_STUFF/LOGS/systemLog.txt'
+	wordLog   = '/home/one-to-rule-them-all/VIRTUAL/Code_File/BOT_STUFF/LOGS/wordLog.json'
+elif serverNode == 'master':
+	serverNode = "Server"
+	load_dotenv('/home/master/Desktop/Plato/SENSITIVE/.env')
+	systemLog = '/home/master/Desktop/Plato/LOGS/systemLog.txt'
+	wordLog   = '/home/master/Desktop/Plato/LOGS/wordLog.json'
 
 #BOT ACCESS TOKEN
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -29,11 +41,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='~', intents=intents, help_command=None)
-
-#NODE SELECTION
-serverNode = os.getlogin()
-if serverNode == 'one-to-rule-them-all':
-	serverNode = "Master"
 
 #SERVER INFO
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
@@ -100,12 +107,10 @@ async def ready_message(ID, guild):
 	print(f"{bot.user} has successfully connected to the following guild: {guild.name}")
 
 #LOGGING
-if serverNode == "Master":
-	log = '/home/one-to-rule-them-all/VIRTUAL/Code_File/BOT_STUFF/LOGS/systemLog.txt'
 def log_entry(message):
 	logEntryTime = DT.now(pytz.timezone("US/Mountain"))
 	logEntryTime = logEntryTime.strftime("%b %d, %Y @ %I:%M:%S %Z")
-	with open(log, 'a') as logFile:
+	with open(systemLog, 'a') as logFile:
 		entry = f'\n\n{logEntryTime}\n\t{message}'
 		logFile.write(entry)
 	logFile.close()
@@ -115,7 +120,9 @@ class WordTracker():
 	def __init__(self):
 		self.trackedWords = ['roy', ':3', 'fuck', 'fucking', 'fuckery']
 		if serverNode == "Master":
-			self.logFile = '/home/one-to-rule-them-all/VIRTUAL/Code_File/BOT_STUFF/LOGS/wordLog.json'
+			self.logFile = wordLog
+		elif serverNode == "Server":
+			self.logFile = wordLog
 		self.currentLog = None
 	def read_logs(self):
 		with open(self.logFile, 'r', encoding='UTF-8') as log:
@@ -187,3 +194,41 @@ class MoonPhase():
 			if date == moonDate:
 				return f"It is {moonDate} & the moon phase is: {self.lunation[date]}"
 lunar = MoonPhase()
+
+
+"""
+'''
+Do u think u could make smth like a scheduler that announces events in the announcement channel?
+Like monthly bookclubs or weekly movie nights?
+Or a reminder for me for anniversaries or Christmas or smth events?
+'''
+
+class EventReminder():
+	def __init__(self):
+		self.eventLog = 'events.json'
+		self.events 		  = None
+		self.monthlyBookclub  = None
+		self.weeklyMovieNight = None
+		self.anniversaries 	  = None
+		self.reminders        = None
+
+	def get_events(self):
+		with open(self.eventLog, 'r') as file:
+			self.events = json.load(file)
+		file.close()
+
+	def save_events(self, data):
+		with open(self.eventLog, 'w', encoding='UTF-8') as log:
+			json.dump(data, log, ensure_ascii=False, indent=2)
+		log.close()
+	
+	def create_event(self, name, date, time, description=None):
+		self.get_events()
+		if name not in self.events.keys():
+			self.events[name] = {
+				"Date"        : date,
+				"Time"        : time,
+				"Description" : description 
+			}
+		self.save_events(self.events)
+"""

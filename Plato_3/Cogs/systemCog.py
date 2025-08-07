@@ -55,48 +55,51 @@ class BotSysCommands(commands.Cog):
 ### SYS-TEMP
     @commands.command()
     async def temp(self, ctx):
-        '''Displays the current system temperature'''
-        log_entry(f'{ctx.message.author.global_name} requested the system temperature')
-        temp_command = subprocess.run(['cat', '/sys/class/thermal/thermal_zone0/temp'], capture_output=True, text=True)
-        try:
-            if temp_command.returncode == 0:
-                temp = float(temp_command.stdout.strip()) / 1000
+        if commands.is_owner:
+            '''Displays the current system temperature'''
+            log_entry(f'{ctx.message.author.global_name} requested the system temperature')
+            temp_command = subprocess.run(['cat', '/sys/class/thermal/thermal_zone0/temp'], capture_output=True, text=True)
+            try:
+                if temp_command.returncode == 0:
+                    temp = float(temp_command.stdout.strip()) / 1000
+                    embed = discord.Embed(
+                        title="System Temperature",
+                        description=f"Current CPU Temperature: {temp:.1f}°C",
+                        color=0xaf7ac5
+                    )
+            except Exception as e:
                 embed = discord.Embed(
                     title="System Temperature",
-                    description=f"Current CPU Temperature: {temp:.1f}°C",
+                    description=f"An Error has occured: {str(e)}",
                     color=0xaf7ac5
-                )
-        except Exception as e:
-            embed = discord.Embed(
-                title="System Temperature",
-                description=f"An Error has occured: {str(e)}",
-                color=0xaf7ac5
-            )        
-        await ctx.send(embed=embed)
+                )        
+            await ctx.send(embed=embed)
         
 ### SHUTDOWN
     @commands.command()
     async def execute_shutdown_protocol(self, ctx):
-        '''Quira gets pinged if I am offline'''
-        log_entry(f'Plato was shutdown by {ctx.message.author.global_name}')
-        for channel in notificationChannelIDs:
-            await send_message(channel, "I am going offline either due to maintenance or an error has occurred. You can check with <@1249781579383963682> for more information.")
-            await asyncio.sleep(0.25)
-            await send_message(channel, "https://tenor.com/view/yoda-star-wars-learning-am-i-gif-7797622749241998825")
-        sys.exit()
+        if commands.is_owner or commands.has_permissions(administrator=True):
+            '''Quira gets pinged if I am offline'''
+            log_entry(f'Plato was shutdown by {ctx.message.author.global_name}')
+            for channel in notificationChannelIDs:
+                await send_message(channel, "I am going offline either due to maintenance or an error has occurred. You can check with <@1249781579383963682> for more information.")
+                await asyncio.sleep(0.25)
+                await send_message(channel, "https://tenor.com/view/yoda-star-wars-learning-am-i-gif-7797622749241998825")
+            sys.exit()
 
 ### PRINT SERVER DATA
     @commands.command()
     async def print_server_data(self, ctx):
-        '''Prints the server data to the console'''
-        log_entry(f'{ctx.message.author.global_name} requested server data')
-        for guild in self.bot.guilds:
-            print("--------------------------------------------------")
-            print(f"Server Name: {guild.name}")
-            print(f"Server ID: {guild.id}")
-            print(f"Member Count: {guild.member_count}")
-            print("--------------------------------------------------")
-        await ctx.send("Server data printed to console.")
+        if commands.is_owner or commands.has_permissions(administrator=True):
+            '''Prints the server data to the console'''
+            log_entry(f'{ctx.message.author.global_name} requested server data')
+            for guild in self.bot.guilds:
+                print("--------------------------------------------------")
+                print(f"Server Name: {guild.name}")
+                print(f"Server ID: {guild.id}")
+                print(f"Member Count: {guild.member_count}")
+                print("--------------------------------------------------")
+            await ctx.send("Server data printed to console.")
 
 async def setup(bot):
     await bot.add_cog(BotSysCommands(bot))
