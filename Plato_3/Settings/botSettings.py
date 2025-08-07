@@ -83,6 +83,7 @@ channelId8 			= os.getenv('PLATO_NOTIF_CHANNEL_ID8')
 boosterRole 		= os.getenv('ROLE_NAME')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
 notificationChannelIDs = [channelId1, channelId2, channelId3, channelId4, channelId5, botChannelID6, channelId7, channelId8]
+print(notificationChannelIDs)
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
 GUILDS = f'\n~ {GUILD1}\n~ {GUILD2}\n~ {GUILD3}\n~ {GUILD4}\n~ {GUILD5}\n~ {GUILD6}\n~ {GUILD7}\n~ {GUILD8}'
 guildCount = len(GUILDS.split('\n')) - 1
@@ -97,7 +98,7 @@ def author_check(author):
     return lambda message: message.author == author
 
 async def send_message(channel_id, message_content):
-    channel = bot.get_channel(channel_id)
+    channel = bot.get_channel(int(channel_id))
     if channel is None:
         log_entry(f'Message was unable to be sent due to:\n\t\tAttempted Message: {message_content}\n\t\tInvalid Channel Id: {channel_id}')
     await channel.send(message_content)

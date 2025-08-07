@@ -82,6 +82,7 @@ class BotSysCommands(commands.Cog):
             '''Quira gets pinged if I am offline'''
             log_entry(f'Plato was shutdown by {ctx.message.author.global_name}')
             for channel in notificationChannelIDs:
+                print(channel)
                 await send_message(channel, "I am going offline either due to maintenance or an error has occurred. You can check with <@1249781579383963682> for more information.")
                 await asyncio.sleep(0.25)
                 await send_message(channel, "https://tenor.com/view/yoda-star-wars-learning-am-i-gif-7797622749241998825")
