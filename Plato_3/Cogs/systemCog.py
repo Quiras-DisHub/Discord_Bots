@@ -17,20 +17,34 @@ class BotSysCommands(commands.Cog):
     async def help(self, ctx):
         '''Displays the command Help Menu'''
         log_entry(f'{ctx.message.author.global_name} requested the help menu')
-        
         embed = discord.Embed(
             title= "Plato Help Menu",
             description= "All initial commands are lower case and preceeded by the tidal mark `~`. Commands that result in a follow-up response will indicate Case Sensitivity.",
-            color= 0xaf7ac5
-        )
-        embed.add_field(name="ping", value="Pings this bot's status", inline=False)
-        embed.add_field(name="poem", value="Displays a poem at random that was written by my creator", inline=False)
-        embed.add_field(name="quote", value="Lets you choose from one of 10 quote categories", inline=False)
-        embed.add_field(name="wordy", value="# *Only works in the `Nerdy Mode` server* #\nWill display the word tracker results in the appropriate channel", inline=False)
-        embed.add_field(name="game", value="Will start a Word Scramble game made by my creator", inline=False)
-        embed.add_field(name="guitar_practice", value="Will start a guitar chord practice, that has options to practice chords with & without image assist", inline=False)
-        
+            color= 0xaf7ac5)
+        embed.add_field(name="help", value="Brings up this help menu.", inline=False)
+        embed.add_field(name="ping", value="Pings this bot's status.", inline=False)
+        embed.add_field(name="poem", value="Displays a poem at random that was written by my creator.", inline=False)
+        embed.add_field(name="quote", value="Lets you choose from one of 10 quote categories.", inline=False)
+        embed.add_field(name="wordy", value="# *Only works in the `Nerdy Mode` server.* #\nWill display the word tracker results in the appropriate channel.", inline=False)
+        embed.add_field(name="game", value="Will start a Word Scramble game made by my creator.", inline=False)
+        embed.add_field(name="guitar", value="Will start a guitar chord practice, that has options to practice chords with & without image assist.", inline=False)
+        embed.set_footer(text="Some Commands are only available to the server owners, bot owner, or those with admin permissions.\nThis means they are not displayed in this menu.\nThey can be brought up by using thee ~admin_help command and they will be sent to a designated admin channel.")
         await ctx.send(embed=embed)
+
+### ADMIN HELP
+    @commands.command()
+    async def admin_help(self, ctx):
+        if commands.is_owner or commands.has_permissions(administrator=True):
+            log_entry(f'{ctx.message.author.global_name} requested the admin help menu')
+            embed = discord.Embed(
+                title= "Plato Admin Help Menu",
+                description= "All initial commands are lower case and preceeded by the tidal mark '~'. These commands are only available to the server owners, bot owner, or those with admin permissions.",
+                color= 0xaf7ac5)
+            embed.add_field(name="admin_help", value="Brings up this admin help menu. (Bot Owner:Y / Server Owner:Y / Admin:Y)", inline=False)
+            embed.add_field(name="execute_shutdown_protocol", value="Shuts down the bot and sends a message to the designated admin channels. (Bot Owner:Y / Server Owner:Y / Admin:Y)", inline=False)
+            embed.add_field(name="temp", value="Displays the current CPU Temp of the Bot Owner's Computer. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
+            embed.add_field(name="print_server_data", value="Prints the server data to the console. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
+            await ctx.send(embed=embed)
 
 ### PING
     @commands.command()
@@ -40,16 +54,13 @@ class BotSysCommands(commands.Cog):
         currentTime = currentTime.strftime("%b %d, %Y @ %I:%M:%S %Z")
         log_entry(f'{ctx.message.author.global_name} Pinged Plato @ {currentTime}')
         response = random.choice(pingTest)
-
         embed = discord.Embed(
             title="Plato Status",
             description=response,
-            color=0xaf7ac5
-        )
+            color=0xaf7ac5)
         embed.add_field(name="Current Time", value=currentTime, inline=False)
         embed.add_field(name="Start Time", value=startTime, inline=False)
         embed.add_field(name="Server Count", value=f"Deployed across {guildCount} servers", inline=False)
-
         await ctx.send(embed=embed)
 
 ### SYS-TEMP
@@ -65,14 +76,12 @@ class BotSysCommands(commands.Cog):
                     embed = discord.Embed(
                         title="System Temperature",
                         description=f"Current CPU Temperature: {temp:.1f}°C",
-                        color=0xaf7ac5
-                    )
+                        color=0xaf7ac5)
             except Exception as e:
                 embed = discord.Embed(
                     title="System Temperature",
                     description=f"An Error has occured: {str(e)}",
-                    color=0xaf7ac5
-                )        
+                    color=0xaf7ac5)        
             await ctx.send(embed=embed)
         
 ### SHUTDOWN

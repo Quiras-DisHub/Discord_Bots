@@ -205,7 +205,7 @@ class FuncCommands(commands.Cog):
 
 ### GUITAR
     @commands.command()
-    async def guitar_practice(self, ctx):
+    async def guitar(self, ctx):
             log_entry(f"{ctx.message.author.global_name} is Practicing. {bot.user} will create a log.")
             practicing = True
             practiceLog['Start'] = True

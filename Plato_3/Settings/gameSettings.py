@@ -18,6 +18,12 @@ if serverNode == "Master":
 	fullDict      = open('/home/one-to-rule-them-all/VIRTUAL/Discord_Bots/Plato_3/Supplement_Data/DICTS/FULL_DICT.txt', 'r')
 	olderDict     = open('/home/one-to-rule-them-all/VIRTUAL/Discord_Bots/Plato_3/Supplement_Data/DICTS/main_cambridge.txt', 'r')
 	newerDict     = open('/home/one-to-rule-them-all/VIRTUAL/Discord_Bots/Plato_3/Supplement_Data/DICTS/main_mit.txt', 'r')
+elif serverNode == "Server":
+    firstNameDict = open('/home/master/Desktop/Plato/Plato_3/Supplement_Data/DICTS/NAMES/first-names.txt', 'r')
+    lastNameDict  = open('/home/master/Desktop/Plato/Plato_3/Supplement_Data/DICTS/NAMES/last-names.txt', 'r')
+    fullDict      = open('/home/master/Desktop/Plato/Plato_3/Supplement_Data/DICTS/FULL_DICT.txt', 'r')
+    olderDict     = open('/home/master/Desktop/Plato/Plato_3/Supplement_Data/DICTS/main_cambridge.txt', 'r')
+    newerDict     = open('/home/master/Desktop/Plato/Plato_3/Supplement_Data/DICTS/main_mit.txt', 'r')
 
 words 	   = []
 wordList   = []

@@ -83,7 +83,6 @@ channelId8 			= os.getenv('PLATO_NOTIF_CHANNEL_ID8')
 boosterRole 		= os.getenv('ROLE_NAME')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
 notificationChannelIDs = [channelId1, channelId2, channelId3, channelId4, channelId5, botChannelID6, channelId7, channelId8]
-print(notificationChannelIDs)
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
 GUILDS = f'\n~ {GUILD1}\n~ {GUILD2}\n~ {GUILD3}\n~ {GUILD4}\n~ {GUILD5}\n~ {GUILD6}\n~ {GUILD7}\n~ {GUILD8}'
 guildCount = len(GUILDS.split('\n')) - 1
