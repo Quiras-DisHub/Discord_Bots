@@ -28,8 +28,7 @@ class BotSysCommands(commands.Cog):
         embed.add_field(name="wordy", value="# *Only works in the `Nerdy Mode` server.* #\nWill display the word tracker results in the appropriate channel.", inline=False)
         embed.add_field(name="game", value="Will start a Word Scramble game made by my creator.", inline=False)
         embed.add_field(name="guitar", value="Will start a guitar chord practice, that has options to practice chords with & without image assist.", inline=False)
-        embed.set_footer(text="Some Commands are only available to the server owners, bot owner, or those with admin permissions.\nThis means they are not displayed in this menu.\nThey can be brought up by using thee ~admin_help command and they will be sent to a designated admin channel.")
-        embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
+        embed.set_footer(text=f"Some Commands are only available to the server owners, bot owner, or those with admin permissions.\nThis means they are not displayed in this menu.\nThey can be brought up by using thee ~admin_help command and they will be sent to a designated admin channel.\n\n{DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z")}")
         await ctx.send(embed=embed)
 
 ### ADMIN HELP
