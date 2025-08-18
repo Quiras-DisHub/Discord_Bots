@@ -15,16 +15,16 @@ def time_in_range(start, end, current):
 
 @bot.event
 async def on_ready():
+    print(f'{bot.user} is connected to the following server(s):')
+    counter1 = 0
     for guild in bot.guilds:
-        print(f'{bot.user} is connected to server: {guild.name}')
+        counter1 += 1
+        print(f'\t{counter1}: {guild.name}')
     print("\n\n")
-    log_entry(f'Plato should be connected to: {GUILDS}\nAnd is connected to: {guildCount} servers')
-    await asyncio.sleep(0.25)
-    await bot.load_extension('Cogs.systemCog')
-    await asyncio.sleep(0.25)
-    await bot.load_extension('Cogs.functionCog')
-    await asyncio.sleep(0.25)
-    await bot.load_extension('Cogs.dailyCog')
+    log_entry(f'Plato should be connected to ({guildCount}) servers: {GUILDS}\n\tAnd is connected to: {counter1} servers.')
+    cogLoad = await load_cogs()
+    if cogLoad:
+        log_entry(f'Plato successfully loaded all cogs.')
 
 @bot.listen()
 async def on_message(message):
@@ -42,13 +42,17 @@ async def on_message(message):
         await message.channel.send("Did you mean: `~help`?")
 
     if message.content.lower() == 'reload':
-        await asyncio.sleep(0.25)
-        await message.channel.send("Reloading Plato's System")
-        await bot.reload_extension('Cogs.systemCog')
-        await message.channel.send("Reloading Plato's Functions")
-        await bot.reload_extension('Cogs.functionCog')
-        await message.channel.send("Reloading Plato's Daily Tasks")
-        await bot.reload_extension('Cogs.dailyCog')
+        log_entry(f'{message.author.global_name} requested Plato to reload.')
+        cogReload = await reload_cogs()
+        embed = discord.Embed(
+            title="Reload Confirmation",
+            description=f"{message.author.global_name} requested Plato to reload.",
+            color=0xaf7ac5)
+        embed.add_field(name="System Reload:", value="Successful", inline=True)
+        embed.add_field(name="Function Reload:", value="Successful", inline=True)
+        embed.add_field(name="Daily Reload:", value="Successful", inline=True)
+        embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
+        await message.channel.send(embed=embed)
 
 if __name__ == '__main__':
     bot.run(TOKEN, reconnect=True)

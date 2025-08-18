@@ -77,7 +77,7 @@ GUILD7 	   			= os.getenv('DISCORD_GUILD7')
 GUILD_ID7  			= os.getenv('DISCORD_GUILD_ID7')
 channelId7 			= os.getenv('GENERAL_CHANNEL_ID7')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
-GUILD8 	   			= os.getenv('DISCORD_GUILD')
+GUILD8 	   			= os.getenv('DISCORD_GUILD8')
 GUILD_ID8   		= os.getenv('DISCORD_GUILD_ID8')
 channelId8 			= os.getenv('PLATO_NOTIF_CHANNEL_ID8')
 boosterRole 		= os.getenv('ROLE_NAME')
@@ -114,7 +114,32 @@ def log_entry(message):
 		entry = f'\n\n{logEntryTime}\n\t{message}'
 		logFile.write(entry)
 	logFile.close()
-     
+
+#COG LOADER
+async def load_cogs():
+	cogs = ['Cogs.systemCog','Cogs.functionCog','Cogs.dailyCog']
+	for cog in cogs:
+		await asyncio.sleep(0.25)
+		try:
+			await bot.load_extension(cog)
+		except Exception as cogLoadingError:
+			print(f'Plato failed to load cogs.')
+			log_entry(f'Cog Loading Error:\n\tAttempeted to load: {cog}\n\tError encountered: {cogLoadingError}')
+			return False
+	return True
+
+#COG RELOADER
+async def reload_cogs():
+	cogs = ['Cogs.systemCog','Cogs.functionCog','Cogs.dailyCog']
+	for cog in cogs:
+		await asyncio.sleep(0.25)
+		try:
+			await bot.reload_extension(cog)
+		except Exception as cogReloadingError:
+			log_entry(f'Cog Re-loading Error:\n\tAttempeted to reload: {cog}\n\tError encountered: {cogReloadingError}')
+			return False
+	return True
+
 #WORD TRACKING
 class WordTracker():
 	def __init__(self):

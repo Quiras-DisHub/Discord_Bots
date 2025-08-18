@@ -59,8 +59,6 @@ class DailyTasks(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(DailyTasks(bot))
-    log_entry("DailyTasks Cog loaded into sys")
 
 async def teardown(bot):
     await bot.remove_cog('DailyTasks')
-    log_entry("DailyTasks Cog unloaded from sys")

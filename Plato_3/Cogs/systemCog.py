@@ -29,6 +29,7 @@ class BotSysCommands(commands.Cog):
         embed.add_field(name="game", value="Will start a Word Scramble game made by my creator.", inline=False)
         embed.add_field(name="guitar", value="Will start a guitar chord practice, that has options to practice chords with & without image assist.", inline=False)
         embed.set_footer(text="Some Commands are only available to the server owners, bot owner, or those with admin permissions.\nThis means they are not displayed in this menu.\nThey can be brought up by using thee ~admin_help command and they will be sent to a designated admin channel.")
+        embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
         await ctx.send(embed=embed)
 
 ### ADMIN HELP
@@ -44,6 +45,7 @@ class BotSysCommands(commands.Cog):
             embed.add_field(name="execute_shutdown_protocol", value="Shuts down the bot and sends a message to the designated admin channels. (Bot Owner:Y / Server Owner:Y / Admin:Y)", inline=False)
             embed.add_field(name="temp", value="Displays the current CPU Temp of the Bot Owner's Computer. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
             embed.add_field(name="print_server_data", value="Prints the server data to the console. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
+            embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
             await ctx.send(embed=embed)
 
 ### PING
@@ -61,6 +63,7 @@ class BotSysCommands(commands.Cog):
         embed.add_field(name="Current Time", value=currentTime, inline=False)
         embed.add_field(name="Start Time", value=startTime, inline=False)
         embed.add_field(name="Server Count", value=f"Deployed across {guildCount} servers", inline=False)
+        embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
         await ctx.send(embed=embed)
 
 ### SYS-TEMP
@@ -77,11 +80,13 @@ class BotSysCommands(commands.Cog):
                         title="System Temperature",
                         description=f"Current CPU Temperature: {temp:.1f}°C",
                         color=0xaf7ac5)
+                    embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
             except Exception as e:
                 embed = discord.Embed(
                     title="System Temperature",
                     description=f"An Error has occured: {str(e)}",
-                    color=0xaf7ac5)        
+                    color=0xaf7ac5)    
+                embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))    
             await ctx.send(embed=embed)
         
 ### SHUTDOWN
@@ -113,8 +118,6 @@ class BotSysCommands(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(BotSysCommands(bot))
-    log_entry("BotSysCommands Cog loaded into sys")
 
 async def teardown(bot):
     await bot.remove_cog('BotSysCommands')
-    log_entry("BotSysCommands Cog unloaded from sys")
