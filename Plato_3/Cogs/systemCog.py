@@ -73,20 +73,13 @@ class BotSysCommands(commands.Cog):
         '''Displays the current system temperature'''
         log_entry(f'{ctx.message.author.global_name} requested the system temperature')
         temp_command = subprocess.run(['cat', '/sys/class/thermal/thermal_zone0/temp'], capture_output=True, text=True)
-        try:
-            if temp_command.returncode == 0:
-                temp = float(temp_command.stdout.strip()) / 1000
-                embed = discord.Embed(
-                    title="System Temperature",
-                    description=f"Current CPU Temperature: {temp:.1f}°C",
-                    color=0xaf7ac5)
-                embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
-        except discord.ext.commands.errors.NotOwner as error:
+        if temp_command.returncode == 0:
+            temp = float(temp_command.stdout.strip()) / 1000
             embed = discord.Embed(
-                title="Error",
-                description=error,
-                color=0xff0000)
-            embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))                
+                title="System Temperature",
+                description=f"Current CPU Temperature: {temp:.1f}°C",
+                color=0xaf7ac5)
+            embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))               
         await ctx.send(embed=embed)
         
 ### SHUTDOWN
