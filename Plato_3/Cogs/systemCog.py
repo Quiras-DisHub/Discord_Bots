@@ -33,20 +33,20 @@ class BotSysCommands(commands.Cog):
         await ctx.send(embed=embed)
 
 ### ADMIN HELP
+    @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
     @commands.command()
     async def admin_help(self, ctx):
-        if commands.is_owner or commands.has_permissions(administrator=True):
-            log_entry(f'{ctx.message.author.global_name} requested the admin help menu')
-            embed = discord.Embed(
-                title= "Plato Admin Help Menu",
-                description= "All initial commands are lower case and preceeded by the tidal mark '~'. These commands are only available to the server owners, bot owner, or those with admin permissions.",
-                color= 0xaf7ac5)
-            embed.add_field(name="admin_help", value="Brings up this admin help menu. (Bot Owner:Y / Server Owner:Y / Admin:Y)", inline=False)
-            embed.add_field(name="execute_shutdown_protocol", value="Shuts down the bot and sends a message to the designated admin channels. (Bot Owner:Y / Server Owner:Y / Admin:Y)", inline=False)
-            embed.add_field(name="temp", value="Displays the current CPU Temp of the Bot Owner's Computer. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
-            embed.add_field(name="print_server_data", value="Prints the server data to the console. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
-            embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
-            await ctx.send(embed=embed)
+        log_entry(f'{ctx.message.author.global_name} requested the admin help menu')
+        embed = discord.Embed(
+            title= "Plato Admin Help Menu",
+            description= "All initial commands are lower case and preceeded by the tidal mark '~'. These commands are only available to the server owners, bot owner, or those with admin permissions.",
+            color= 0xaf7ac5)
+        embed.add_field(name="admin_help", value="Brings up this admin help menu. (Bot Owner:Y / Server Owner:Y / Admin:Y)", inline=False)
+        embed.add_field(name="execute_shutdown_protocol", value="Shuts down the bot and sends a message to the designated admin channels. (Bot Owner:Y / Server Owner:Y / Admin:Y)", inline=False)
+        embed.add_field(name="temp", value="Displays the current CPU Temp of the Bot Owner's Computer. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
+        embed.add_field(name="print_server_data", value="Prints the server data to the console. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
+        embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
+        await ctx.send(embed=embed)
 
 ### PING
     @commands.command()
@@ -67,54 +67,54 @@ class BotSysCommands(commands.Cog):
         await ctx.send(embed=embed)
 
 ### SYS-TEMP
+    @commands.is_owner()
     @commands.command()
     async def temp(self, ctx):
-        if commands.is_owner:
-            '''Displays the current system temperature'''
-            log_entry(f'{ctx.message.author.global_name} requested the system temperature')
-            temp_command = subprocess.run(['cat', '/sys/class/thermal/thermal_zone0/temp'], capture_output=True, text=True)
-            try:
-                if temp_command.returncode == 0:
-                    temp = float(temp_command.stdout.strip()) / 1000
-                    embed = discord.Embed(
-                        title="System Temperature",
-                        description=f"Current CPU Temperature: {temp:.1f}°C",
-                        color=0xaf7ac5)
-                    embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
-            except Exception as e:
+        '''Displays the current system temperature'''
+        log_entry(f'{ctx.message.author.global_name} requested the system temperature')
+        temp_command = subprocess.run(['cat', '/sys/class/thermal/thermal_zone0/temp'], capture_output=True, text=True)
+        try:
+            if temp_command.returncode == 0:
+                temp = float(temp_command.stdout.strip()) / 1000
                 embed = discord.Embed(
                     title="System Temperature",
-                    description=f"An Error has occured: {str(e)}",
-                    color=0xaf7ac5)    
-                embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))    
-            await ctx.send(embed=embed)
+                    description=f"Current CPU Temperature: {temp:.1f}°C",
+                    color=0xaf7ac5)
+                embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
+        except discord.ext.commands.errors.NotOwner as error:
+            embed = discord.Embed(
+                title="Error",
+                description=error,
+                color=0xff0000)
+            embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))                
+        await ctx.send(embed=embed)
         
 ### SHUTDOWN
+    @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
     @commands.command()
     async def execute_shutdown_protocol(self, ctx):
-        if commands.is_owner or commands.has_permissions(administrator=True):
-            '''Quira gets pinged if I am offline'''
-            log_entry(f'Plato was shutdown by {ctx.message.author.global_name}')
-            for channel in notificationChannelIDs:
-                print(channel)
-                await send_message(channel, "I am going offline either due to maintenance or an error has occurred. You can check with <@1249781579383963682> for more information.")
-                await asyncio.sleep(0.25)
-                await send_message(channel, "https://tenor.com/view/yoda-star-wars-learning-am-i-gif-7797622749241998825")
-            sys.exit()
+        '''Quira gets pinged if I am offline'''
+        log_entry(f'Plato was shutdown by {ctx.message.author.global_name}')
+        for channel in notificationChannelIDs:
+            print(channel)
+            await send_message(channel, "I am going offline either due to maintenance or an error has occurred. You can check with <@1249781579383963682> for more information.")
+            await asyncio.sleep(0.25)
+            await send_message(channel, "https://tenor.com/view/yoda-star-wars-learning-am-i-gif-7797622749241998825")
+        sys.exit()
 
 ### PRINT SERVER DATA
+    @commands.is_owner()
     @commands.command()
     async def print_server_data(self, ctx):
-        if commands.is_owner or commands.has_permissions(administrator=True):
-            '''Prints the server data to the console'''
-            log_entry(f'{ctx.message.author.global_name} requested server data')
-            for guild in self.bot.guilds:
-                print("--------------------------------------------------")
-                print(f"Server Name: {guild.name}")
-                print(f"Server ID: {guild.id}")
-                print(f"Member Count: {guild.member_count}")
-                print("--------------------------------------------------")
-            await ctx.send("Server data printed to console.")
+        '''Prints the server data to the console'''
+        log_entry(f'{ctx.message.author.global_name} requested server data')
+        for guild in self.bot.guilds:
+            print("--------------------------------------------------")
+            print(f"Server Name: {guild.name}")
+            print(f"Server ID: {guild.id}")
+            print(f"Member Count: {guild.member_count}")
+            print("--------------------------------------------------")
+        await ctx.send("Server data printed to console.")
 
 async def setup(bot):
     await bot.add_cog(BotSysCommands(bot))
