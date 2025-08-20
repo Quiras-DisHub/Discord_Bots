@@ -79,7 +79,7 @@ channelId7 			= os.getenv('GENERAL_CHANNEL_ID7')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
 GUILD8 	   			= os.getenv('DISCORD_GUILD8')
 GUILD_ID8   		= os.getenv('DISCORD_GUILD_ID8')
-channelId8 			= os.getenv('PLATO_NOTIF_CHANNEL_ID8')
+channelId8 			= os.getenv('NOTIF_CHANNEL_ID8')
 boosterRole 		= os.getenv('ROLE_NAME')
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###
 notificationChannelIDs = [channelId1, channelId2, channelId3, channelId4, channelId5, botChannelID6, channelId7, channelId8]
