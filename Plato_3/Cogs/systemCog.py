@@ -47,6 +47,16 @@ class BotSysCommands(commands.Cog):
         embed.add_field(name="print_server_data", value="Prints the server data to the console. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
         embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
         await ctx.send(embed=embed)
+    @admin_help.error
+    async def admin_help_error(self, ctx, error):
+        currentTime = DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z")
+        if isinstance(error, commands.errors.CheckAnyFailure):
+            embed = discord.Embed(
+                title="Permission Denied",
+                description=f"{ctx.message.author.global_name}, you do not have permission to use this command.",
+                color=0xaf7ac5)
+            embed.set_footer(text=f"If you need access to this command speak to my creator or Admin\n\n{currentTime}")
+        await ctx.send(embed=embed)
 
 ### PING
     @commands.command()
@@ -71,6 +81,7 @@ class BotSysCommands(commands.Cog):
     @commands.command()
     async def temp(self, ctx):
         '''Displays the current system temperature'''
+        currentTime = DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z")
         log_entry(f'{ctx.message.author.global_name} requested the system temperature')
         temp_command = subprocess.run(['cat', '/sys/class/thermal/thermal_zone0/temp'], capture_output=True, text=True)
         if temp_command.returncode == 0:
@@ -79,7 +90,17 @@ class BotSysCommands(commands.Cog):
                 title="System Temperature",
                 description=f"Current CPU Temperature: {temp:.1f}°C",
                 color=0xaf7ac5)
-            embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))               
+            embed.set_footer(text=currentTime)               
+        await ctx.send(embed=embed)
+    @temp.error
+    async def temp_error(self, ctx, error):
+        currentTime = DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z")
+        if isinstance(error, commands.errors.NotOwner):
+            embed = discord.Embed(
+                title="Permission Denied",
+                description=f"{ctx.message.author.global_name}, you do not have permission to use this command.",
+                color=0xaf7ac5)
+            embed.set_footer(text=f"If you need access to this command speak to my creator or Admin\n\n{currentTime}")
         await ctx.send(embed=embed)
         
 ### SHUTDOWN
@@ -94,6 +115,16 @@ class BotSysCommands(commands.Cog):
             await asyncio.sleep(0.25)
             await send_message(channel, "https://tenor.com/view/yoda-star-wars-learning-am-i-gif-7797622749241998825")
         sys.exit()
+    @execute_shutdown_protocol.error
+    async def execute_shutdown_protocol_error(self, ctx, error):
+        currentTime = DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z")
+        if isinstance(error, commands.errors.CheckAnyFailure):
+            embed = discord.Embed(
+                title="Permission Denied",
+                description=f"{ctx.message.author.global_name}, you do not have permission to use this command.",
+                color=0xaf7ac5)
+            embed.set_footer(text=f"If you need access to this command speak to my creator or Admin\n\n{currentTime}")
+        await ctx.send(embed=embed)
 
 ### PRINT SERVER DATA
     @commands.is_owner()
@@ -108,6 +139,16 @@ class BotSysCommands(commands.Cog):
             print(f"Member Count: {guild.member_count}")
             print("--------------------------------------------------")
         await ctx.send("Server data printed to console.")
+    @print_server_data.error
+    async def print_server_data_error(self, ctx, error):
+        currentTime = DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z")
+        if isinstance(error, commands.errors.NotOwner):
+            embed = discord.Embed(
+                title="Permission Denied",
+                description=f"{ctx.message.author.global_name}, you do not have permission to use this command.",
+                color=0xaf7ac5)
+            embed.set_footer(text=f"If you need access to this command speak to my creator or Admin\n\n{currentTime}")
+        await ctx.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(BotSysCommands(bot))
