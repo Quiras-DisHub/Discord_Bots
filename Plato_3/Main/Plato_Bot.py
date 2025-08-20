@@ -52,7 +52,8 @@ async def on_message(message):
         embed.add_field(name="Function Reload:", value="Successful", inline=True)
         embed.add_field(name="Daily Reload:", value="Successful", inline=True)
         embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
-        await message.channel.send(embed=embed)
+        await message.add_reaction(":white_check_mark:")
+        await message.channel.send(embed=embed, delete_after=10.0)
 
 if __name__ == '__main__':
     bot.run(TOKEN, reconnect=True)

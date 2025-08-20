@@ -30,7 +30,8 @@ class BotSysCommands(commands.Cog):
         embed.add_field(name="game", value="Will start a Word Scramble game made by my creator.", inline=False)
         embed.add_field(name="guitar", value="Will start a guitar chord practice, that has options to practice chords with & without image assist.", inline=False)
         embed.set_footer(text=f"Some Commands are only available to the server owners, bot owner, or those with admin permissions.\nThis means they are not displayed in this menu.\nThey can be brought up by using thee ~admin_help command and they will be sent to a designated admin channel.\n\n{currentTime}")
-        await ctx.send(embed=embed)
+        await ctx.add_reaction(":white_check_mark:")
+        await ctx.send(embed=embed, delete_after=60.0)
 
 ### ADMIN HELP
     @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
@@ -46,7 +47,12 @@ class BotSysCommands(commands.Cog):
         embed.add_field(name="temp", value="Displays the current CPU Temp of the Bot Owner's Computer. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
         embed.add_field(name="print_server_data", value="Prints the server data to the console. (Bot Owner:Y / Server Owner:N / Admin:N)", inline=False)
         embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
-        await ctx.send(embed=embed)
+        if ctx.guild.id == GUILD_ID1 or ctx.guild.id == GUILD_ID8:
+            await ctx.add_reaction(":white_check_mark:")
+            await ctx.send(embed=embed, delete_after=60.0)
+        else:
+            await ctx.add_reaction(":white_check_mark:")
+            await ctx.send(embed=embed, delete_after=60.0)
     @admin_help.error
     async def admin_help_error(self, ctx, error):
         currentTime = DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z")
@@ -56,7 +62,8 @@ class BotSysCommands(commands.Cog):
                 description=f"{ctx.message.author.global_name}, you do not have permission to use this command.",
                 color=0xaf7ac5)
             embed.set_footer(text=f"If you need access to this command speak to my creator or Admin\n\n{currentTime}")
-        await ctx.send(embed=embed)
+        await ctx.add_reaction(":x:")
+        await ctx.send(embed=embed, delete_after=10.0)
 
 ### PING
     @commands.command()
@@ -74,7 +81,8 @@ class BotSysCommands(commands.Cog):
         embed.add_field(name="Start Time", value=startTime, inline=False)
         embed.add_field(name="Server Count", value=f"Deployed across {guildCount} servers", inline=False)
         embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
-        await ctx.send(embed=embed)
+        await ctx.add_reaction(":white_check_mark:")
+        await ctx.send(embed=embed, delete_after=10.0)
 
 ### SYS-TEMP
     @commands.is_owner()
@@ -90,8 +98,9 @@ class BotSysCommands(commands.Cog):
                 title="System Temperature",
                 description=f"Current CPU Temperature: {temp:.1f}°C",
                 color=0xaf7ac5)
-            embed.set_footer(text=currentTime)               
-        await ctx.send(embed=embed)
+            embed.set_footer(text=currentTime)
+        await ctx.add_reaction(":white_check_mark:")
+        await ctx.send(embed=embed, delete_after=10.0)
     @temp.error
     async def temp_error(self, ctx, error):
         currentTime = DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z")
@@ -101,7 +110,8 @@ class BotSysCommands(commands.Cog):
                 description=f"{ctx.message.author.global_name}, you do not have permission to use this command.",
                 color=0xaf7ac5)
             embed.set_footer(text=f"If you need access to this command speak to my creator or Admin\n\n{currentTime}")
-        await ctx.send(embed=embed)
+        await ctx.add_reaction(":x:")
+        await ctx.send(embed=embed, delete_after=10.0)
         
 ### SHUTDOWN
     @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
@@ -124,7 +134,8 @@ class BotSysCommands(commands.Cog):
                 description=f"{ctx.message.author.global_name}, you do not have permission to use this command.",
                 color=0xaf7ac5)
             embed.set_footer(text=f"If you need access to this command speak to my creator or Admin\n\n{currentTime}")
-        await ctx.send(embed=embed)
+        await ctx.add_reaction(":x:")
+        await ctx.send(embed=embed, delete_after=10.0)
 
 ### PRINT SERVER DATA
     @commands.is_owner()
@@ -138,6 +149,7 @@ class BotSysCommands(commands.Cog):
             print(f"Server ID: {guild.id}")
             print(f"Member Count: {guild.member_count}")
             print("--------------------------------------------------")
+        await ctx.add_reaction(":white_check_mark:")
         await ctx.send("Server data printed to console.")
     @print_server_data.error
     async def print_server_data_error(self, ctx, error):
@@ -148,7 +160,8 @@ class BotSysCommands(commands.Cog):
                 description=f"{ctx.message.author.global_name}, you do not have permission to use this command.",
                 color=0xaf7ac5)
             embed.set_footer(text=f"If you need access to this command speak to my creator or Admin\n\n{currentTime}")
-        await ctx.send(embed=embed)
+        await ctx.add_reaction(":x:")
+        await ctx.send(embed=embed, delete_after=10.0)
 
 async def setup(bot):
     await bot.add_cog(BotSysCommands(bot))
