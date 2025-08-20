@@ -53,11 +53,11 @@ class FuncCommands(commands.Cog):
     @commands.command()
     async def wordy(self, ctx):
         '''Special feature to Nerdy Mode Server only'''
-        if ctx.guild.id != int(GUILD_ID1) and ctx.guild.name != GUILD1:
+        if ctx.guild.id != int(GUILD_ID1):
             await ctx.channel.send("This command is only available in the `Nerdy Mode` Server")
             log_entry(f'{ctx.message.author.global_name} from {ctx.guild.name} tried to use the word tracker command')
             return
-        elif ctx.guild.id == int(GUILD_ID1) and ctx.guild.name == GUILD1:
+        elif ctx.guild.id == int(GUILD_ID1):
             log_entry(f'{ctx.message.author.global_name} requested to see the tracked word results.')
             results = track.results()
             await send_message(wordStatChannelId1, results)
