@@ -97,6 +97,12 @@ pingTest = ["Pong", "Pong was busy so a Ding Dong has been sent", "Pong... Ding.
 def author_check(author):
     return lambda message: message.author == author
 
+def is_bot_or_guild_owner():
+    async def predicate(command):
+        # Check if user is bot owner or server owner
+        return await command.bot.is_owner(command.author) or (command.guild is not None and command.author.id == command.guild.owner_id)
+    return commands.check(predicate)
+
 async def send_message(channel_id, message_content):
     channel = bot.get_channel(int(channel_id))
     if channel is None:
@@ -196,7 +202,6 @@ class WordTracker():
 		self.read_logs()
 		data = f"Memebers have said the following words a total of {self.currentLog['Total']['Words']['all']} times.\nRoy = {self.currentLog['Total']['Words']['roy']} times\n:3 = {self.currentLog['Total']['Words'][':3']} times\nFuck = {self.currentLog['Total']['Words']['fuck']} times\nFucking = {self.currentLog['Total']['Words']['fucking']} times\nFuckery = {self.currentLog['Total']['Words']['fuckery']} times"
 		return f"This is still under construction, but for now:\n{data}"
-track = WordTracker()
 
 class MoonPhase():
 	def __init__(self):
@@ -219,42 +224,34 @@ class MoonPhase():
 		for date in self.lunation.keys():
 			if date == moonDate:
 				return f"It is {moonDate} & the moon phase is: {self.lunation[date]}"
-lunar = MoonPhase()
 
-
-"""
-'''
-Do u think u could make smth like a scheduler that announces events in the announcement channel?
-Like monthly bookclubs or weekly movie nights?
-Or a reminder for me for anniversaries or Christmas or smth events?
-'''
-
-class EventReminder():
+class DailySettings():
 	def __init__(self):
-		self.eventLog = 'events.json'
-		self.events 		  = None
-		self.monthlyBookclub  = None
-		self.weeklyMovieNight = None
-		self.anniversaries 	  = None
-		self.reminders        = None
-
-	def get_events(self):
-		with open(self.eventLog, 'r') as file:
-			self.events = json.load(file)
-		file.close()
-
-	def save_events(self, data):
-		with open(self.eventLog, 'w', encoding='UTF-8') as log:
-			json.dump(data, log, ensure_ascii=False, indent=2)
-		log.close()
-	
-	def create_event(self, name, date, time, description=None):
-		self.get_events()
-		if name not in self.events.keys():
-			self.events[name] = {
-				"Date"        : date,
-				"Time"        : time,
-				"Description" : description 
+		self.choices = ['on', 'off']
+		self.nerdy = {
+			'quote' : 'on',
+			'moon'  : 'on'
 			}
-		self.save_events(self.events)
-"""
+	
+	def displaySettings(self):
+		settings = f"Current Settings:\nDaily Quote: {self.nerdy['quote'].capitalize()}\nMoon Phase: {self.nerdy['moon'].capitalize}"
+		return settings
+	
+	def changeSettings(self, function, setting):
+		if function in self.nerdy.keys():
+			if setting in self.choices:
+				self.nerdy[function] = setting
+				if function == 'quote':
+					result = f"Daily {function.capitalize()} has been turned {setting.capitalize()}."
+				elif function == 'moon':
+					result = f"{function.capitalize()} Phase has be turned {setting.capitalize()}."
+			else:
+				result = f"You entered: {setting}, but this is not a valid setting. Please choose either 'on' or 'off'."
+		else:
+			result = f"You entered: {function}, but this is not a valid function. Please choose either 'quote' or 'moon'."
+		return result
+
+
+track = WordTracker()
+lunar = MoonPhase()
+preferences = DailySettings()

@@ -31,7 +31,7 @@ class BotSysCommands(commands.Cog):
         embed.add_field(name="guitar", value="Will start a guitar chord practice, that has options to practice chords with & without image assist.", inline=False)
         embed.set_footer(text=f"Some Commands are only available to the server owners, bot owner, or those with admin permissions.\nThis means they are not displayed in this menu.\nThey can be brought up by using thee ~admin_help command and they will be sent to a designated admin channel.\n\n{currentTime}")
         await ctx.message.add_reaction("✅")
-        await ctx.send(embed=embed, delete_after=60.0)
+        await ctx.send(embed=embed, delete_after=120.0)
 
 ### ADMIN HELP
     @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
@@ -49,10 +49,10 @@ class BotSysCommands(commands.Cog):
         embed.set_footer(text=DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z"))
         if ctx.guild.id == GUILD_ID1 or ctx.guild.id == GUILD_ID8:
             await ctx.message.add_reaction("✅")
-            await ctx.send(embed=embed, delete_after=60.0)
+            await ctx.send(embed=embed, delete_after=120.0)
         else:
             await ctx.message.add_reaction("✅")
-            await ctx.send(embed=embed, delete_after=60.0)
+            await ctx.send(embed=embed, delete_after=120.0)
     @admin_help.error
     async def admin_help_error(self, ctx, error):
         currentTime = DT.now(pytz.timezone("US/Mountain")).strftime("%b %d, %Y @ %I:%M:%S %Z")
@@ -162,6 +162,13 @@ class BotSysCommands(commands.Cog):
             embed.set_footer(text=f"If you need access to this command speak to my creator or Admin\n\n{currentTime}")
         await ctx.message.add_reaction("❌")
         await ctx.send(embed=embed, delete_after=10.0)
+
+
+### UPDATE SERVER BASED SETTINGS
+    @commands.check_any(commands.is_owner(), is_bot_or_guild_owner())
+    @commands.command()
+    async def update_settings(self):
+
 
 async def setup(bot):
     await bot.add_cog(BotSysCommands(bot))
